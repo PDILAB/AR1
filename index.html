@@ -8,15 +8,17 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     :root {
-      --bg: #ffffff; /* fondo blanco */
+      --bg: #0a2a66; /* azul Talavera */
       --panel: #0f3a8c;
       --panel-2: #0a2f73;
       --border: #1e4fb3;
-      --text: #0a2a66;
-      --muted: #3a4a7a;
+      --text: #f5f5f5;
+      --muted: #d0d8f0;
       --soft: #9fa4aa;
       --accent: #ffffff;
       --accent-2: #cfe0ff;
@@ -25,10 +27,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: 
-        url('patron.jpg') repeat,
-        var(--bg);
-      background-size: 300px;
+      background: var(--bg);
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
     }
@@ -90,7 +89,7 @@
     .topbar-text .institution {
       font-size: 1rem;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text);
     }
 
     .topbar-text .lab {
@@ -117,16 +116,21 @@
       background: linear-gradient(to bottom, var(--panel), var(--panel-2));
       border: 1px solid var(--border);
       border-radius: 24px;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.25);
-      color: white;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.45);
     }
 
-    .hero-main { padding: 28px 26px; }
-    .hero-side { padding: 24px 22px; }
+    .hero-main {
+      padding: 28px 26px;
+    }
+
+    .hero-side {
+      padding: 24px 22px;
+    }
 
     h1 {
       margin: 0 0 14px 0;
       font-size: 2.2rem;
+      line-height: 1.1;
       color: #ffffff;
     }
 
@@ -134,18 +138,57 @@
       margin: 0;
       font-size: 1rem;
       line-height: 1.7;
-      color: var(--accent-2);
+      color: var(--muted);
+      max-width: 850px;
     }
 
-    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
 
     .chip {
       padding: 10px 14px;
       border-radius: 999px;
       background: #0c2f73;
       border: 1px solid var(--border);
-      color: white;
+      color: var(--text);
       font-size: 0.92rem;
+    }
+
+    .hero-side h2,
+    .section h2 {
+      margin: 0 0 14px 0;
+      font-size: 1.2rem;
+      color: #ffffff;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .meta-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #0c2f73;
+      border: 1px solid var(--border);
+    }
+
+    .meta-item strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--accent-2);
+      margin-bottom: 4px;
+    }
+
+    .meta-item span {
+      display: block;
+      font-size: 0.96rem;
+      line-height: 1.5;
+      color: var(--muted);
     }
 
     .viewer-section {
@@ -155,46 +198,75 @@
       padding: 4px 20px 24px;
     }
 
-    .viewer-flex {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-      align-items: stretch;
-    }
-
     .viewer-card {
       background: linear-gradient(to bottom, #0f3a8c, #0a2f73);
       border: 1px solid var(--border);
       border-radius: 26px;
       overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
     }
 
-    .side-image {
-      border-radius: 26px;
-      overflow: hidden;
+    .viewer-topbar {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: #0a2a66;
     }
 
-    .side-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .viewer-topbar .title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .viewer-topbar .subtitle {
+      font-size: 0.9rem;
+      color: var(--soft);
+    }
+
+    .ar-hint {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--accent-2);
+      font-size: 0.9rem;
+      white-space: nowrap;
     }
 
     model-viewer {
       width: 100%;
       height: 72vh;
-      background: radial-gradient(circle, #1b4fc9, #0a2a66);
+      min-height: 520px;
+      background: radial-gradient(circle at center, #1b4fc9 0%, #0a2a66 60%, #081f4d 100%);
     }
 
     .viewer-info {
-      padding: 18px;
+      padding: 18px 20px 24px;
       text-align: center;
-      color: #cfe0ff;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.7;
+    }
+
+    .viewer-info .file-tag {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #0c2f73;
+      border: 1px solid var(--border);
+      color: #f0f0f0;
+      font-size: 0.92rem;
     }
 
     .sections {
       max-width: 1180px;
+      width: 100%;
       margin: 0 auto;
       padding: 0 20px 32px;
       display: grid;
@@ -206,15 +278,30 @@
       background: linear-gradient(to bottom, var(--panel), var(--panel-2));
       border: 1px solid var(--border);
       border-radius: 22px;
-      padding: 22px;
-      color: white;
+      padding: 22px 22px 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .section p,
+    .section li {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.97rem;
+    }
+
+    .section ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .section li + li {
+      margin-top: 8px;
     }
 
     footer {
       margin-top: auto;
       border-top: 1px solid var(--border);
       background: #081f4d;
-      color: white;
     }
 
     .footer-inner {
@@ -222,43 +309,209 @@
       margin: 0 auto;
       padding: 18px 20px 24px;
       text-align: center;
+      color: var(--soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .footer-inner strong {
+      color: var(--text);
     }
 
     @media (max-width: 980px) {
       .hero-grid,
-      .sections,
-      .viewer-flex {
+      .sections {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar-inner {
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      .hero-main,
+      .hero-side,
+      .section {
+        padding: 20px 18px;
+      }
+
+      model-viewer {
+        height: 62vh;
+        min-height: 420px;
+      }
+
+      .viewer-topbar {
+        align-items: flex-start;
+      }
+
+      .ar-hint {
+        white-space: normal;
       }
     }
   </style>
 </head>
 <body>
 
-  <section class="viewer-section">
-    <div class="viewer-flex">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="Logo institucional UNAM" />
+      </div>
 
-      <div class="viewer-card">
-        <model-viewer
-          src="smartwatch.glb"
-          ios-src="smartwatch.usdz"
-          alt="Modelo 3D"
-          ar
-          camera-controls
-          auto-rotate>
-        </model-viewer>
+      <div class="topbar-text">
+        <div class="eyebrow">Demo académico web AR</div>
+        <div class="institution">Posgrado en Diseño Industrial</div>
+        <div class="lab">Laboratorio de Realidad Virtual y Realidad Aumentada</div>
+      </div>
+    </div>
+  </div>
 
-        <div class="viewer-info">
-          <strong>tiempo talavera</strong>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1>Demo explicativo para generación de proyectos iniciales vía web</h1>
+        <p class="lead">
+          Este sitio presenta una prueba base para la visualización de modelos 3D en navegador
+          y su despliegue en realidad aumentada desde dispositivos móviles compatibles. El objetivo
+          es servir como referencia técnica inicial para futuros proyectos académicos y de experimentación
+          en entornos web inmersivos.
+        </p>
+
+        <div class="chips">
+          <div class="chip">Visualización 3D en navegador</div>
+          <div class="chip">Realidad aumentada en celular</div>
+          <div class="chip">Modelo placeholder: Smartwatch</div>
+          <div class="chip">Publicación vía web</div>
         </div>
       </div>
 
-      <div class="side-image">
-        <img src="smartwatch.png" alt="Imagen del modelo Talavera">
-      </div>
+      <aside class="hero-side">
+        <h2>Ficha del proyecto</h2>
+        <div class="meta-list">
+          <div class="meta-item">
+            <strong>Alumno</strong>
+            <span>LUIS ALEJANDRO BUTRON HERNANDEZ</span>
+          </div>
 
+          <div class="meta-item">
+            <strong>Modalidad</strong>
+            <span>Servicio Social</span>
+          </div>
+
+          <div class="meta-item">
+            <strong>Tutoría académica</strong>
+            <span>Dr. Erick Iroel Heredia Carrillo</span>
+          </div>
+
+          <div class="meta-item">
+            <strong>Espacio académico</strong>
+            <span>Posgrado en Diseño Industrial · Laboratorio de Realidad Virtual y Realidad Aumentada</span>
+          </div>
+        </div>
+      </aside>
     </div>
   </section>
+
+  <section class="viewer-section">
+    <div class="viewer-card">
+      <div class="viewer-topbar">
+        <div>
+          <div class="title">Visualizador de modelo 3D y AR</div>
+          <div class="subtitle">Explora el modelo y actívalo en realidad aumentada desde tu dispositivo móvil</div>
+        </div>
+        <div class="ar-hint">Usa el botón de AR del visor en dispositivos compatibles</div>
+      </div>
+
+      <model-viewer
+        src="smartwatch.glb"
+        ios-src="smartwatch.usdz"
+        alt="Modelo 3D de un smartwatch con estética mexicana"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        auto-rotate
+        shadow-intensity="1.2"
+        exposure="1"
+        environment-image="neutral">
+      </model-viewer>
+
+      <div class="viewer-info">
+        <strong style="display:block; font-size:1.2rem; letter-spacing:1px; margin-bottom:10px; color:#ffffff;">
+          tiempo talavera
+        </strong>
+        Puedes girar el modelo, acercarlo o alejarlo con gestos táctiles o con el mouse. En dispositivos compatibles,
+        el visor permitirá abrir la experiencia en realidad aumentada.
+        <div class="file-tag">Archivo actual: <strong>smartwatch.glb</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sections">
+    <div class="section">
+      <h2>Cómo usar este demo</h2>
+      <ul>
+        <li>Abre esta página desde un celular compatible.</li>
+        <li>Espera a que cargue el modelo 3D.</li>
+        <li>Explora el objeto directamente en el visor.</li>
+        <li>Activa el modo de realidad aumentada con el botón del visor.</li>
+        <li>Apunta hacia una superficie estable para posicionar el modelo en el espacio.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Propósito académico</h2>
+      <p>
+        Este demo funciona como una base explicativa para comprender cómo un modelo digital puede ser publicado en web,
+        visualizado en tres dimensiones y proyectado en realidad aumentada desde el celular. Su intención es apoyar
+        el desarrollo de ejercicios iniciales, pruebas de concepto y propuestas académicas de carácter exploratorio.
+      </p>
+    </div>
+  </section>
+
+  <!-- NUEVA SECCIÓN TALAVERA -->
+  <section class="sections" style="grid-template-columns: 1fr;">
+    <div class="section">
+      <h2>¿Qué es la Talavera?</h2>
+      <p>
+        La Talavera es una de las tradiciones cerámicas más representativas de México, originaria principalmente de Puebla
+        desde el siglo XVI. Surge de la fusión entre técnicas españolas y conocimientos artesanales locales, dando lugar
+        a piezas únicas elaboradas con arcillas naturales, esmaltes blancos y decoraciones pintadas a mano, donde destaca
+        el característico azul profundo.
+      </p>
+
+      <p>
+        Más allá de su valor estético, la Talavera representa identidad, memoria y permanencia cultural. Cada pieza es el
+        resultado de un proceso lento y cuidadoso, donde el tiempo interviene en cada etapa: desde el moldeado hasta la cocción.
+        Es, en esencia, materia transformada por el tiempo.
+      </p>
+
+      <h2>Concepto: Tiempo Talavera</h2>
+      <p>
+        "Tiempo Talavera" propone entender el tiempo como un proceso artesanal. Así como la cerámica se construye capa por capa,
+        el tiempo se acumula en experiencias, dejando huellas invisibles que se vuelven tangibles en los objetos.
+      </p>
+
+      <p>
+        El reloj deja de ser solo un instrumento de medición para convertirse en un contenedor cultural: cada textura, patrón
+        y tonalidad azul remite a ciclos, repetición y permanencia. En este concepto, el tiempo no solo se mide, se moldea,
+        se decora y se conserva, como una pieza de Talavera.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <strong>Posgrado en Diseño Industrial</strong><br>
+      Laboratorio de Realidad Virtual y Realidad Aumentada<br>
+      Desarrollo realizado por <strong>Luis Alejandro Butrón Hernández</strong> como parte de su <strong>Servicio Social</strong>,
+      bajo la tutoría del <strong>Dr. Erick Iroel Heredia Carrillo</strong>.
+    </div>
+  </footer>
 
 </body>
 </html>
