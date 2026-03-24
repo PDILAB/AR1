@@ -3,201 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Facción | Fallout AR</title>
-
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <title>Fallout | Facciones - Demo AR</title>
 
   <style>
     * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      background: #000000;
-      color: #ffffff;
-      font-family: 'Trebuchet MS', Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+    :root {
+      --bg: #000000;
+      --panel: #0f0f10;
+      --panel-2: #17181a;
+      --border: #2c2f33;
+      --text: #f5f5f5;
+      --accent: #ffb642; 
+      --soft: #9fa4aa;
     }
 
-    .container {
-      padding: 20px;
-      flex: 1;
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
+      align-items: center;
+    }
+
+    /* Título Superior */
+    .header-container {
+      text-align: center;
+      padding: 60px 20px 20px 20px;
       width: 100%;
     }
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .main-title {
+      font-size: clamp(3rem, 10vw, 6rem);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      color: #ffffff;
+      text-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
     }
 
-    .back-btn {
-      color: #ffb642;
-      text-decoration: none;
-      font-weight: bold;
-      border: 1px solid #ffb642;
-      padding: 8px 16px;
-      border-radius: 5px;
-      transition: background 0.2s, color 0.2s;
+    .subtitle-box {
+      margin-top: 15px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .back-btn:hover {
-      background: #ffb642;
-      color: #000;
+    .subtitle-box h2 {
+      font-size: 1.3rem;
+      font-weight: normal;
+      color: var(--soft);
+      line-height: 1.4;
     }
 
-    /* Mitad superior: 50% Modelo, 50% Imagen */
-    .media-split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      height: 50vh;
-      min-height: 400px;
-    }
-
-    .media-box {
-      background: #111111;
-      border: 2px solid #333333;
-      border-radius: 12px;
+    /* --- SLIDER DE FACCIONES --- */
+    .slider-container {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      height: 450px;
+      margin: 40px auto 60px auto;
       overflow: hidden;
+      border: 2px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+
+    .slides {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 300%; /* 3 facciones */
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      width: 33.333%;
+      height: 100%;
       position: relative;
     }
 
-    /* EL DIFUMINADO DEL MODELO ESTÁ AQUÍ */
-    model-viewer {
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, #2a2c30 0%, #16181b 42%, #060607 100%);
-    }
-
-    .media-box img {
+    .slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0.7;
     }
 
-    /* Etiqueta flotante para indicar AR */
-    .ar-hint {
+    .slide-info {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 182, 66, 0.15);
-      border: 1px solid rgba(255, 182, 66, 0.5);
-      color: #ffb642;
-      font-size: 0.8rem;
-      pointer-events: none;
-      z-index: 5;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      text-align: center;
     }
 
-    /* Cajas de texto inferiores */
-    .description-box {
-      background: #111111;
-      border: 2px solid #333333;
-      border-radius: 12px;
-      padding: 30px;
+    .slide-info h3 {
+      font-size: 2.5rem;
+      margin: 0 0 15px 0;
+      text-transform: uppercase;
+      color: #fff;
     }
 
-    .description-box h1 { margin-top: 0; color: #ffb642; }
-    .description-box p { line-height: 1.6; font-size: 1.1rem; color: #cccccc; }
+    .btn-action {
+      display: inline-block;
+      padding: 12px 30px;
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: transform 0.2s;
+    }
 
-    /* Secciones Académicas */
+    .btn-action:hover { transform: scale(1.05); }
+
+    /* Flechas del Slider */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      border: 1px solid var(--border);
+      color: white;
+      padding: 15px;
+      cursor: pointer;
+      font-size: 20px;
+      border-radius: 50%;
+      z-index: 10;
+      transition: background 0.3s;
+    }
+
+    .nav-btn:hover { background: var(--accent); color: #000; }
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
+    /* --- SECCIONES ACADÉMICAS --- */
+    .sections-wrapper {
+      width: 90%;
+      max-width: 1000px;
+      margin-bottom: 60px;
+    }
+
     .sections {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 25px;
     }
-    .section {
-      background: #111111;
-      border: 1px solid #333333;
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .section h2 { margin: 0 0 14px 0; font-size: 1.2rem; color: #ffb642; }
-    .section p, .section li { color: #cccccc; line-height: 1.6; font-size: 0.95rem; }
-    .section ul { margin: 0; padding-left: 18px; }
 
-    /* Footer Académico */
-    footer {
-      border-top: 1px solid #333333;
-      background: #060606;
-      width: 100%;
-      padding: 20px;
-      text-align: center;
-      color: #9fa4aa;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      margin-top: 20px;
+    .section {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 25px;
     }
+
+    .section h2 { margin: 0 0 15px 0; font-size: 1.2rem; color: #ffffff; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .section p, .section li { color: var(--soft); line-height: 1.6; font-size: 0.95rem; }
+
+    footer {
+      width: 100%;
+      border-top: 1px solid var(--border);
+      background: #060606;
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--soft);
+      font-size: 0.9rem;
+    }
+
     footer strong { color: #ffffff; }
 
-    @media (max-width: 800px) {
-      .media-split { grid-template-columns: 1fr; height: auto; }
-      model-viewer, .media-box img { height: 40vh; }
+    @media (max-width: 768px) {
       .sections { grid-template-columns: 1fr; }
+      .slider-container { height: 350px; }
+      .slide-info h3 { font-size: 1.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="top-bar">
-      <a href="index.html" class="back-btn">← Volver al inicio</a>
+  <header class="header-container">
+    <h1 class="main-title">Fallout</h1>
+    <div class="subtitle-box">
+      <h2>Conoce a las facciones de una de las grandes franquicias apocalípticas</h2>
     </div>
+  </header>
 
-    <div class="media-split">
-      <div class="media-box">
-        <div class="ar-hint">Activa el botón de AR en celular</div>
-        
-        <model-viewer 
-          src="modelo_rnc.glb" 
-          ios-src="modelo_faccion.usdz"
-          alt="Modelo 3D de la facción"
-          ar 
-          ar-modes="webxr scene-viewer quick-look" 
-          camera-controls 
-          auto-rotate 
-          shadow-intensity="1.2"
-          exposure="1"
-          environment-image="neutral">
-        </model-viewer>
+  <div class="slider-container">
+    <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
+
+    <div class="slides" id="slider">
+      <div class="slide">
+        <img src="img-rnc-bg.jpg" alt="RNC">
+        <div class="slide-info">
+          <h3>RNC</h3>
+          <a href="rnc.html" class="btn-action">Explorar Facción</a>
+        </div>
       </div>
-
-      <div class="media-box">
-        <img src="imagen_rnc.jpg" alt="Imagen de la facción">
+      <div class="slide">
+        <img src="img-hermandad-bg.jpg" alt="Hermandad del Acero">
+        <div class="slide-info">
+          <h3>Hermandad del acero</h3>
+          <a href="hermandad.html" class="btn-action">Explorar Facción</a>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="img-enclave-bg.jpg" alt="Enclave">
+        <div class="slide-info">
+          <h3>Enclave</h3>
+          <a href="enclave.html" class="btn-action">Explorar Facción</a>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="description-box">
-      <h1>República de Nueva California (RNC)</h1>
-      <p>Nacida de las cenizas del pequeño refugio agrícola de Shady Sands, la República de Nueva California es el intento más grande y ambicioso por restaurar la civilización del viejo mundo en el Yermo. Con su icónica bandera del oso bicéfalo, la RNC defiende los valores de la democracia, la ley, el orden y el pago de impuestos. A diferencia de otras facciones, cuentan con una población masiva, infraestructura civil, una economía estructurada y un ejército regular. Sin embargo, su rápida expansión territorial los ha llevado a sufrir de burocracia paralizante, corrupción política y líneas de suministro peligrosamente extendidas. Aunque sus soldados a menudo carecen del armamento de élite de otras facciones, su fuerza radica en los números y en la inquebrantable creencia de que el Yermo puede volver a ser un lugar civilizado.</p>
-    </div>
-
-    <div class="sections">
+  <div class="sections-wrapper">
+    <section class="sections">
       <div class="section">
         <h2>Cómo usar este demo</h2>
         <ul>
-          <li>Abre esta página desde un celular compatible.</li>
-          <li>Explora el objeto directamente en el visor.</li>
-          <li>Activa el modo de realidad aumentada con el botón en la esquina del visor 3D.</li>
-          <li>Apunta hacia una superficie estable para posicionar el modelo en el espacio físico.</li>
+          <li>Navega por el carrusel para elegir una facción.</li>
+          <li>Haz clic en "Explorar Facción" para ver su modelo 3D.</li>
+          <li>En tu celular, presiona el icono de Realidad Aumentada.</li>
+          <li>Apunta al suelo para ver al personaje en tu habitación.</li>
         </ul>
       </div>
       <div class="section">
         <h2>Propósito académico</h2>
-        <p>Este demo funciona como una base explicativa para comprender cómo un modelo digital puede ser publicado en web, visualizado en tres dimensiones y proyectado en realidad aumentada desde el celular. Su intención es apoyar el desarrollo de ejercicios iniciales, pruebas de concepto y propuestas académicas de carácter exploratorio.</p>
+        <p>Este demo funciona como una base explicativa para comprender cómo un modelo digital puede ser publicado en web, visualizado en tres dimensiones y proyectado en realidad aumentada desde el celular.</p>
       </div>
-    </div>
+    </section>
   </div>
 
   <footer>
@@ -208,6 +253,19 @@
       bajo la tutoría del <strong>Dr. Erick Iroel Heredia Carrillo</strong>.
     </div>
   </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slider = document.getElementById('slider');
+
+    function moveSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide > 2) currentSlide = 0;
+      if (currentSlide < 0) currentSlide = 2;
+      
+      slider.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+    }
+  </script>
 
 </body>
 </html>
