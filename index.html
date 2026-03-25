@@ -11,9 +11,9 @@
     :root {
       --bg: #f4f8f4;
       --panel: #ffffff;
-      --panel-2: #e8f3e8;
-      --border: #b7d3b7;
-      --text: #1f2a1f;
+      --panel-2: #5fb05f;
+      --border: #5fb05f;
+      --text: #ffffff;
       --accent: #3a7d44;
       --soft: #6c8a6c;
     }
@@ -84,8 +84,9 @@
     header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: left;
       padding: 20px;
+	  color: var(--soft)
     }
 
     .main-content {
@@ -102,6 +103,7 @@
     .main-title {
       font-size: 4rem;
       text-align: center;
+	   color: var(--soft)
     }
 
     .section {
@@ -122,10 +124,10 @@
 
     footer {
       border-top: 1px solid var(--border);
-      background: #e0efe0;
+      background: #5fb05f;
       padding: 30px;
       text-align: center;
-      color: var(--soft);
+      color: var(--text);
     }
   </style>
 </head>
@@ -164,14 +166,15 @@
 
     <header>
       <div>
-        <img src="logo1.png" height="40">
-        <img src="logo2.png" height="40">
-        <img src="logo3.png" height="40">
+        <img src="logo.png" height="60">
+        <img src="logo1.png" height="60">
+        <img src="logo2.png" height="60">
       </div>
 
       <div>
-        <strong>Demo web AR</strong><br>
-        Laboratorio de realidad mixta en colaboración con el Instituto de Biología
+	  <strong>POSGRADO EN DISEÑO INDUSTRIAL</strong><br>
+        <strong>Demo académico web AR</strong><br>
+        Laboratorio de realidad virtual y realidad aumentada en colaboración con el Instituto de Biología
       </div>
     </header>
 
@@ -184,25 +187,28 @@
 
       <section class="sections">
         <div class="section">
-          <h2>Cómo usar este demo</h2>
-          <ul>
-            <li>Abre esta página desde un celular compatible.</li>
-            <li>Selecciona una planta en el menú lateral.</li>
-            <li>Espera a que cargue el modelo 3D.</li>
-            <li>Activa AR.</li>
-          </ul>
+          <h2>Demo explicativo para generación de proyectos iniciales vía web</h2>
+            <p>Este sitio presenta una prueba base para la visualización de modelos 3D en navegador y su despliegue en realidad aumentada desde dispositivos móviles compatibles. El objetivo es servir como referencia técnica inicial para futuros proyectos académicos y de experimentación en entornos web inmersivos.</p>
         </div>
 
         <div class="section">
-          <h2>Propósito académico</h2>
-          <p>Este demo funciona como una base explicativa para comprender cómo un modelo digital puede ser publicado en web...</p>
+          <h2>Ficha del proyecto</h2>
+		  <ul>
+          <li><strong>Alumno:</strong> Luis Alejandro Butrón Hernández</li>
+		<li><strong>Modalidad:</strong>Servicio social</li>
+		<li><strong>Tutoría académica:</strong> Dr. Erick Iroel Heredia Carrillo</li>
+		<li><strong>Espacio académico:</strong> Posgrado en Diseño Industrial · Laboratorio de Realidad Virtual y Realidad Aumentada</li>
+		</ul>
         </div>
       </section>
     </main>
 
     <footer>
+     <div class="footer-inner">
       <strong>Posgrado en Diseño Industrial</strong><br>
-      Laboratorio de Realidad Virtual y Realidad Aumentada
+      Laboratorio de Realidad Virtual y Realidad Aumentada<br>
+      Desarrollo realizado por <strong>Luis Alejandro Butrón Hernández</strong> como parte de su <strong>Servicio Social</strong>,
+      bajo la tutoría del <strong>Dr. Erick Iroel Heredia Carrillo</strong>.
     </footer>
 
   </div>
