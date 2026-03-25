@@ -26,7 +26,7 @@
       font-family: Arial, Helvetica, sans-serif;
       height: 100vh;
       width: 100vw;
-      overflow: hidden;
+      overflow: hidden; /* Esto está perfecto para computadora */
     }
 
     .app-container {
@@ -81,17 +81,16 @@
       flex-direction: column;
     }
 
-    /* --- CAMBIOS EN EL HEADER APLICADOS AQUÍ --- */
     header {
       display: flex;
-      justify-content: flex-start; /* Alinea todo a la izquierda */
-      align-items: center; /* Centra los elementos verticalmente */
+      justify-content: flex-start; 
+      align-items: center; 
       padding: 15px;
       color: var(--soft);
-      gap: 20px; /* Agrega espacio entre los logos y el texto */
-      flex-wrap: wrap; /* Permite que el texto baje en celular si no cabe */
-	  border-bottom: 1px solid var(--accent);
-	  background: var(--text)
+      gap: 20px; 
+      flex-wrap: wrap; 
+      border-bottom: 1px solid var(--accent);
+      background: var(--text);
     }
 
     .main-content {
@@ -108,7 +107,7 @@
     .main-title {
       font-size: 4rem;
       text-align: center;
-	  color: var(--soft)
+      color: var(--soft);
     }
 
     .section {
@@ -135,38 +134,62 @@
       color: var(--text);
     }
 
-    /* --- CÓDIGO NUEVO PARA CELULARES --- */
+    /* --- CÓDIGO ACTUALIZADO PARA CELULARES --- */
     @media (max-width: 768px) {
+      /* Permitimos que en celular la página completa haga scroll hacia abajo */
+      html, body {
+        height: auto;
+        overflow: auto; 
+      }
+
       .app-container {
-        flex-direction: column; /* Pone la barra lateral arriba y el contenido abajo */
+        flex-direction: column;
+        height: auto;
       }
       
+      /* Desagrupamos la caja principal para poder reordenar los elementos en la pantalla */
+      .main-wrapper {
+        display: contents; 
+      }
+
+      /* Aquí está la magia: ordenamos quién va primero de arriba hacia abajo */
+      header {
+        order: 1; 
+      }
+
       .sidebar {
+        order: 2; /* Ponemos el menú debajo del header */
         width: 100%;
-        height: 500px;
-        flex-direction: row; /* Convierte los botones en un menú horizontal */
+        height: auto; /* Dejamos que el alto se adapte automático a las tarjetas */
+        flex-direction: row; 
         padding: 15px;
         border-right: none;
-        border-bottom: 1px solid var(--border);
-        overflow-x: auto; /* Permite deslizar los botones hacia los lados */
+        border-bottom: 2px solid var(--accent); /* Lo separamos un poquito del contenido */
+        overflow-x: auto; 
         white-space: nowrap;
       }
       
       .tab {
-        flex: 0 0 160px; /* Tamaño fijo de los botones en celular */
-        height: 80px;
+        /* Aumentamos el tamaño de las tarjetas en el celular para que se luzcan las imágenes */
+        flex: 0 0 240px; 
+        height: 120px;
+      }
+
+      .main-content {
+        order: 3; /* El contenido va después del menú */
+        padding: 20px; 
+      }
+
+      footer {
+        order: 4; /* El pie de página va al final */
       }
       
       .main-title {
-        font-size: 2.5rem; /* Hace el título más pequeño para que quepa bien */
+        font-size: 2.5rem; 
       }
       
       .sections {
-        grid-template-columns: 1fr; /* Apila las cajas de información una sobre otra */
-      }
-      
-      .main-content {
-        padding: 20px; /* Reduce los márgenes en pantallas pequeñas */
+        grid-template-columns: 1fr; 
       }
     }
   </style>
@@ -211,7 +234,7 @@
       </div>
 
       <div>
-	      <strong>POSGRADO EN DISEÑO INDUSTRIAL</strong><br>
+          <strong>POSGRADO EN DISEÑO INDUSTRIAL</strong><br>
         <strong>Demo académico web AR</strong><br>
         Laboratorio de realidad virtual y realidad aumentada en colaboración con el Herbario de la Facultad de arquitectura
       </div>
@@ -232,12 +255,12 @@
 
         <div class="section">
           <h2>Ficha del proyecto</h2>
-		  <ul>
+          <ul>
           <li><strong>Alumno:</strong> Luis Alejandro Butrón Hernández</li>
-		      <li><strong>Modalidad:</strong>Servicio social</li>
-		      <li><strong>Tutoría académica:</strong> Dr. Erick Iroel Heredia Carrillo</li>
-		      <li><strong>Espacio académico:</strong> Posgrado en Diseño Industrial · Laboratorio de Realidad Virtual y Realidad Aumentada</li>
-		  </ul>
+              <li><strong>Modalidad:</strong>Servicio social</li>
+              <li><strong>Tutoría académica:</strong> Dr. Erick Iroel Heredia Carrillo</li>
+              <li><strong>Espacio académico:</strong> Posgrado en Diseño Industrial · Laboratorio de Realidad Virtual y Realidad Aumentada</li>
+          </ul>
         </div>
       </section>
     </main>
